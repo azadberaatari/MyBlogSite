@@ -4,6 +4,7 @@ using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +19,11 @@ namespace DataAccessLayer.Repositories
             c.SaveChanges();
         }
 
+        public void Delete(Blog t)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DeleteBlog(Blog blog)
         {
             throw new NotImplementedException();
@@ -28,10 +34,30 @@ namespace DataAccessLayer.Repositories
             throw new NotImplementedException();
         }
 
+        public List<Blog> GetListAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Blog> GetListAll(Expression<Func<Blog, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(Blog t)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Blog> ListAllBlog()
         {
             using var c = new Context();
             return c.Blogs.ToList();        }
+
+        public void Update(Blog t)
+        {
+            throw new NotImplementedException();
+        }
 
         public void UpdateBlog(Blog blog)
         {
