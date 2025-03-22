@@ -10,7 +10,7 @@ namespace BusinessLayer.Abstract
     public interface ICommentService
     {
         List<Comment> GetList(int id);
-        void CategoryAdd(Comment comment);
+        void CommentAdd(Comment comment);
        // void CategoryDelete(Comment category);
        // void CategoryUpdate(Comment category);
       //  Category GetByID(int id);

@@ -18,6 +18,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseStatusCodePagesWithReExecute("/ErrorPage/Error1/", "?code={0}");
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
