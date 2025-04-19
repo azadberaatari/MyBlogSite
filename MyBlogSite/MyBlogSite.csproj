@@ -29,10 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Shared\Components\NewFolder\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\writer\.DS_Store" />
     <None Include="wwwroot\writer\PSD\.DS_Store" />
   </ItemGroup>
