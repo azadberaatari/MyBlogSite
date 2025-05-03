@@ -62,7 +62,7 @@ namespace DataAccessLayer.Concrete
         public DbSet<Message> Messages { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<EntityLayer.Concrete.Match> Matches { get; set; }
-        public DbSet<Message> Messages2s { get; set; }
+        public DbSet<Message2> Messages2s { get; set; }
 
 
     }
