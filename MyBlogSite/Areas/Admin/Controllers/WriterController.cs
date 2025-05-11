@@ -33,6 +33,7 @@ namespace MyBlogSite.Areas.Admin.Controllers
             var jsonWriters = JsonConvert.SerializeObject(writers);
             return Json(jsonWriters);
         }
+        [HttpPost]
 
         public IActionResult DeleteWriter(int id)
         {
@@ -41,7 +42,7 @@ namespace MyBlogSite.Areas.Admin.Controllers
 
             return Json(writer); //?
         }
-
+        [HttpPost]
         public IActionResult UpdateWriter(WriterClass writerClass)
         {
             var writer = writers.FirstOrDefault(x => x.ID == writerClass.ID);
