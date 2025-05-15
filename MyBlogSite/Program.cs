@@ -1,3 +1,5 @@
+using DataAccessLayer.Concrete;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -15,6 +17,14 @@ builder.Services.AddMvc(config =>
     config.Filters.Add(new AuthorizeFilter(policy));
 });
 builder.Services.AddMvc();
+
+builder.Services.AddDbContext<Context>();
+builder.Services.AddIdentity<AppUser, AppRole>(x =>
+{
+    x.Password.RequireUppercase = false;
+    x.Password.RequireNonAlphanumeric = false;
+}).AddEntityFrameworkStores<Context>();
+
 builder.Services.AddAuthentication(
     CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(x =>

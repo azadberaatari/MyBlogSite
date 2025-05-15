@@ -13,7 +13,6 @@ namespace MyBlogSite.Controllers
             var jsonString = await responseMessage.Content.ReadAsStringAsync();
             var values = JsonConvert.DeserializeObject<List<Class1>>(jsonString);
             return View(values);
-
         }
 
         [HttpGet]
@@ -68,7 +67,7 @@ namespace MyBlogSite.Controllers
 
             return View(p);
         }
-
+        [HttpGet]
         public async Task<IActionResult> DeleteEmployee(int id)
         {
             var httpClient = new HttpClient();
@@ -80,11 +79,11 @@ namespace MyBlogSite.Controllers
             }
             return View();
         }
+
         public class Class1
         {
             public int ID { get; set; }
             public string Name { get; set; }
         }
-
     }
 }
