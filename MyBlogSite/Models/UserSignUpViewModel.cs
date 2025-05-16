@@ -23,7 +23,5 @@ namespace MyBlogSite.Models
         [Display(Name = "E-Posta")]
         [Required(ErrorMessage = "Lütfen e-posta adresinizi giriniz.")]
         public string Mail { get; set; }
-
-        public bool IsAcceptTheContract { get; set; }
     }
 }
