@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Concrete
 {
-    public class Context : IdentityDbContext<AppUser , AppRole , int>
+    public class Context : IdentityDbContext<AppUser, AppRole, int>
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -47,6 +47,12 @@ namespace DataAccessLayer.Concrete
                 .WithMany(y => y.WriterReceiver)
                 .HasForeignKey(z => z.ReceiverID)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+
+            //modelBuilder.Entity<Blog>()
+            //    .ToTable("Blogs", tableBuilder =>
+            //    {
+            //        tableBuilder.HasTrigger("AddBlogInRaytingTable");
+            //    });
 
             base.OnModelCreating(modelBuilder);
         }

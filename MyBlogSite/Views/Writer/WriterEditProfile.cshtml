@@ -5,32 +5,6 @@
     Layout = "~/Views/Shared/WriterLayout.cshtml";
 }
 
-@* @using (Html.BeginForm("WriterEditProfile", "Writer", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.WriterName)
-        @Html.TextBoxFor(m => m.WriterName, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.WriterName)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.WriterMail)
-        @Html.TextBoxFor(m => m.WriterMail, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.WriterMail)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.WriterPassword)
-        @Html.PasswordFor(m => m.WriterPassword, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.WriterPassword)
-    </div>
-    <div class="form-group">
-        <label>Profile Picture</label>
-        <input type="file" name="WriterImage" />
-    </div>
-    <button type="submit" class="btn btn-primary">Save</button>
-}) *@
-
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
@@ -50,28 +24,14 @@
                         <label for="exampleInputEmail3">Mail Adresi</label>
                         <input type="text" asp-for="@Model.mail" class="form-control" />
                     </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail3">Yeni Şifreniz</label>
+                    <input type="text" asp-for="@Model.password" class="form-control" />
+                </div>
                     <div class="form-group">
                         <label for="exampleInputEmail3">Resim Yolu</label>
                         <input type="text" asp-for="@Model.imageurl" class="form-control" />
                     </div>
-@*                      <div class="form-group">
-                        <label for="exampleInputPassword4">Şifre</label> 
-                         @Html.PasswordFor(x => x.PasswordHash, new { @class = "form-control" }) 
-                    </div> *@
-                    @* <div class="form-group">
-                        <label>Yazar Görsel</label>
-                        <input type="file" name="img[]" class="file-upload-default">
-                        <div class="input-group col-xs-12">
-                            <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                            <span class="input-group-append">
-                                <button class="file-upload-browse btn btn-gradient-primary" type="button">Resim Seç</button>
-                            </span>
-                        </div>
-                    </div> *@
-@*                     <div class="form-group">
-                        <label for="exampleTextarea1">Yazar Hakkımda</label>
-                        @Html.TextAreaFor(x => x.WriterAbout, new { @class = "form-control" })
-                    </div> *@
                     <button type="submit" class="btn btn-gradient-primary mr-2">Güncelle</button>
                     <button class="btn btn-light">İptal</button>
                 </form>
