@@ -1,12 +1,13 @@
-﻿using BlogApiDemo.DataAccessLayer;
+﻿using DataAccessLayer.Concrete;
 using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.AspNetCore.Mvc.Rendering;
 namespace MyBlogSite.Controllers
 {
-    [AllowAnonymous]
+
     public class MessageController : Controller
     {
         
@@ -18,14 +19,54 @@ namespace MyBlogSite.Controllers
             var username = User.Identity.Name;
             var usermail = c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
             var writerID = c.Writers.Where(x => x.WriterMail == usermail).Select(y => y.WriterID).FirstOrDefault();
-            
+
+
             var values = mm.GetInboxListByWriter(writerID);
+            return View(values);
+        }
+        public IActionResult SendBox()
+        {
+            var username = User.Identity.Name;
+            var usermail = c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
+            var writerID = c.Writers.Where(x => x.WriterMail == usermail).Select(y => y.WriterID).FirstOrDefault();
+
+            var values = mm.GetSendBoxListByWriter(writerID);
             return View(values);
         }
         public IActionResult MessageDetails(int id)
         {
             var value = mm.TGetById(id);
             return View(value);
+        }
+        [HttpGet]
+        public IActionResult SendMessage()
+        {
+            //UserManager um = new UserManager(new EfUserRepository());
+            //List<SelectListItem> receiverID = (from x in um.GetList()
+            //                                   select new SelectListItem
+            //                                   {
+            //                                       Text = x.Email,
+            //                                       Value = x.Id.ToString()
+            //                                   }).ToList();
+            //ViewBag.AI = receiverID;
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SendMessage(Message2 message)
+        {
+            var username = User.Identity.Name;
+            var usermail = c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
+            var writerID = c.Writers.Where(x => x.WriterMail == usermail).Select(y => y.WriterID).FirstOrDefault();
+
+            message.SenderID = writerID;
+            message.ReceiverID = 2;
+            message.MessageStatus = true;
+            message.MessageDate = DateTime.Now;
+
+            mm.TAdd(message);
+            return RedirectToAction("InBox");
         }
     }
 }
