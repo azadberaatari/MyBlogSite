@@ -21,7 +21,7 @@
                             <small class="text-muted">@item.Category.CategoryName</small>
                             <a href="/Blog/BlogReadAll/@item.BlogID" class="product-name"> @item.BlogTitle</a>
                             <div class="small m-t-xs">
-                                @item.BlogContent.Substring(0, item.BlogContent.Substring(0, 130).LastIndexOf(" "))...
+                                @(item.BlogContent.Length > 50 ? item.BlogContent.Substring(0, 50) + "..." : item.BlogContent)
                             </div>
                             <div class="m-t text-righ">
                                 <a href="/Blog/BlogReadAll/@item.BlogID" class="btn btn-xs btn-outline btn-primary">Detaylar <i class="fa fa-long-arrow-right"></i> </a>
