@@ -6,6 +6,7 @@ namespace MyBlogSite.Areas.Admin.Controllers
 {
     [Area("Admin")]
     //[Authorize(Roles = "Admin,Moderator")]
+
     public class ChartController : Controller
     {
         public IActionResult Index()

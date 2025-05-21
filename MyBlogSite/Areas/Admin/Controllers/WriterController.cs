@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 namespace MyBlogSite.Areas.Admin.Controllers
 {
     [Area("Admin")]
+
     public class WriterController : Controller
     {
         public IActionResult Index()

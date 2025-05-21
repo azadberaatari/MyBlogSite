@@ -8,6 +8,7 @@ namespace MyBlogSite.Areas.Admin.Controllers
 {
     [Area("Admin")]
     //[Authorize(Roles = "Admin,Moderator")]
+
     public class BlogController : Controller
     {
         public IActionResult ExportStaticExcelBlogList()
