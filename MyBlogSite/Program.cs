@@ -30,6 +30,7 @@ builder.Services.AddAuthentication(
     .AddCookie(x =>
     {
         x.LoginPath = "/Login/Index";
+        x.AccessDeniedPath = new PathString("/Login/AccessDenied");
     }
     );
 
