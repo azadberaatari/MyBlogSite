@@ -38,18 +38,17 @@ namespace MyBlogSite.Controllers
             var value = mm.TGetById(id);
             return View(value);
         }
+
         [HttpGet]
         public IActionResult SendMessage()
         {
-            //UserManager um = new UserManager(new EfUserRepository());
-            //List<SelectListItem> receiverID = (from x in um.GetList()
-            //                                   select new SelectListItem
-            //                                   {
-            //                                       Text = x.Email,
-            //                                       Value = x.Id.ToString()
-            //                                   }).ToList();
-            //ViewBag.AI = receiverID;
+            var writers = c.Writers.Select(x => new SelectListItem
+            {
+                Text = x.WriterName, // Dropdown'da görünecek isim
+                Value = x.WriterID.ToString() // Seçilen değer: ReceiverID olacak
+            }).ToList();
 
+            ViewBag.WriterList = writers; // View'da kullanacağız
             return View();
         }
 
@@ -61,12 +60,13 @@ namespace MyBlogSite.Controllers
             var writerID = c.Writers.Where(x => x.WriterMail == usermail).Select(y => y.WriterID).FirstOrDefault();
 
             message.SenderID = writerID;
-            message.ReceiverID = 2;
-            message.MessageStatus = true;
             message.MessageDate = DateTime.Now;
+            message.MessageStatus = true;
 
             mm.TAdd(message);
-            return RedirectToAction("InBox");
+            return RedirectToAction("SendBox");
         }
+
+
     }
 }

@@ -8,16 +8,20 @@
 <br />
 @using (Html.BeginForm("SendMessage", "Message", FormMethod.Post))
 {
-    @Html.Label("Alıcı")
-    @* @Html.TextBoxFor(x => x.Subject, new { @class = "form-control" }) *@
-    <input type="text" class="form-control" />
+    <div class="form-group">
+        @Html.LabelFor(x => x.ReceiverID, "Alıcı")
+        @Html.DropDownListFor(x => x.ReceiverID, ViewBag.WriterList as List<SelectListItem>, "Alıcı Seçin", new { @class = "form-control" })
+    </div>
     <br />
-    @Html.Label("Konu")
-    @Html.TextBoxFor(x => x.Subject, new { @class = "form-control" })
+    <div class="form-group">
+        @Html.LabelFor(x => x.Subject, "Konu")
+        @Html.TextBoxFor(x => x.Subject, new { @class = "form-control" })
+    </div>
     <br />
-    @Html.Label("Mesajınız")
-    @Html.TextAreaFor(x => x.MessageDetails, 15, 3, new { @class = "form-control" })
+    <div class="form-group">
+        @Html.LabelFor(x => x.MessageDetails, "Mesajınız")
+        @Html.TextAreaFor(x => x.MessageDetails, 10, 3, new { @class = "form-control" })
+    </div>
     <br />
     <button class="btn btn-info">Mesajı Gönder</button>
 }
-
