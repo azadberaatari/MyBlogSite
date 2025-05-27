@@ -5,7 +5,7 @@ using MyBlogSite.Areas.Admin.Models;
 namespace MyBlogSite.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = "Admin,Moderator")]
+
 
     public class ChartController : Controller
     {
@@ -19,25 +19,25 @@ namespace MyBlogSite.Areas.Admin.Controllers
 
             list.Add(new CategoryClass
             {
-                categoryname = "Teknoloji",
+                categoryname = "Yazılım",
                 categorycount = 10
             });
 
             list.Add(new CategoryClass
             {
-                categoryname = "Yazılım",
+                categoryname = "Futbol",
                 categorycount = 14
             });
 
             list.Add(new CategoryClass
             {
-                categoryname = "Spor",
+                categoryname = "Sinema",
                 categorycount = 5
             });
 
             list.Add(new CategoryClass
             {
-                categoryname = "Sinema",
+                categoryname = "Müzik",
                 categorycount = 2
             });
 

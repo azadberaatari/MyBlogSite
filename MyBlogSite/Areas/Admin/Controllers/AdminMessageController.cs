@@ -38,6 +38,7 @@ namespace MyBlogSite.Areas.Admin.Controllers
             var values = mm.GetSendBoxListByWriter(writerID);
             return View(values);
         }
+
         [HttpGet]
         public IActionResult ComposeMessage()
         {
@@ -66,7 +67,7 @@ namespace MyBlogSite.Areas.Admin.Controllers
             message.MessageDate = DateTime.Now;
 
             mm.TAdd(message);
-            return RedirectToAction("SendBox");
+            return LocalRedirect("/Admin/Message/SendBox");
         }
     }
 }

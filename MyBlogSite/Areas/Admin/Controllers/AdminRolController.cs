@@ -9,10 +9,11 @@ using MyBlogSite.Models;
 namespace MyBlogSite.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles ="Admin , Moderatör")]
+
     public class AdminRolController : Controller
     {
         private readonly RoleManager<AppRole> _roleManager;
+
         private readonly UserManager<AppUser> _userManager;
 
         public AdminRolController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager)
@@ -26,6 +27,7 @@ namespace MyBlogSite.Areas.Admin.Controllers
             var values = _roleManager.Roles.ToList();
             return View(values);
         }
+
         [HttpGet]
         public IActionResult AddRole()
         {
@@ -46,8 +48,7 @@ namespace MyBlogSite.Areas.Admin.Controllers
                 var result = await _roleManager.CreateAsync(role);
                 if (result.Succeeded)
                 {
-                    //return RedirectToAction("Role", "Admin");
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Role", "Admin");
                 }
 
                 foreach (var item in result.Errors)
@@ -57,6 +58,7 @@ namespace MyBlogSite.Areas.Admin.Controllers
             }
             return View(model);
         }
+
         [HttpGet]
         public IActionResult UpdateRole(int id)
         {
@@ -81,7 +83,7 @@ namespace MyBlogSite.Areas.Admin.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Role", "Admin");
                 }
 
                 foreach (var item in result.Errors)
@@ -99,22 +101,24 @@ namespace MyBlogSite.Areas.Admin.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Role", "Admin");
             }
             return View();
         }
+
         public IActionResult UserRoleList()
         {
             var values = _userManager.Users.ToList();
             return View(values);
         }
+
         [HttpGet]
         public async Task<IActionResult> AssignRole(int id)
         {
             var user = _userManager.Users.FirstOrDefault(x => x.Id == id);
             var roles = _roleManager.Roles.ToList();
 
-            TempData["UserId"] = user.Id;
+            TempData["UserID"] = user.Id;
 
             var userRoles = await _userManager.GetRolesAsync(user);
 
@@ -135,7 +139,7 @@ namespace MyBlogSite.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AssignRole(List<RoleAssignViewModel> model)
         {
-            var userID = (int)TempData["UserId"];
+            var userID = (int)TempData["UserID"];
             var user = _userManager.Users.FirstOrDefault(x => x.Id == userID);
 
             foreach (var item in model)
@@ -150,7 +154,7 @@ namespace MyBlogSite.Areas.Admin.Controllers
                     await _userManager.RemoveFromRoleAsync(user, item.Name);
                 }
             }
-            return LocalRedirect("/Admin/Role/UserRoleList");
+            return LocalRedirect("/Admin/AdminRol/UserRoleList");
         }
     }
 }

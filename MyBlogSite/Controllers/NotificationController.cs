@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MyBlogSite.Controllers
 {
-    public class NotificationController1 : Controller
+    public class NotificationController : Controller
     {
         NotificationManager nm = new NotificationManager(new EfNotificationRepository());
         public IActionResult Index()
