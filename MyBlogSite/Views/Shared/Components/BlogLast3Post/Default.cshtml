@@ -1,5 +1,6 @@
 ﻿@using EntityLayer.Concrete
 @model List<Blog>
+
 <div class="tech-btm">
     <h3>Son Gönderiler</h3>
     @foreach (var item in Model)
@@ -12,9 +13,20 @@
             </div>
 
             <div class="col-md-7 blog-grid-right">
+                @{
+                    var previewLength = 50;
+                    var content = item.BlogContent.Length > previewLength
+                    ? item.BlogContent.Substring(0, previewLength)
+                    : item.BlogContent;
+
+                    var lastSpaceIndex = content.LastIndexOf(" ");
+                    var safePreview = lastSpaceIndex > 0
+                    ? content.Substring(0, lastSpaceIndex)
+                    : content;
+                }
 
                 <h5>
-                    <a href="/Blog/BlogReadAll/@item.BlogID">@item.BlogContent.Substring(0, item.BlogContent.Substring(0, 50).LastIndexOf(" "))... </a>
+                    <a href="/Blog/BlogReadAll/@item.BlogID">@safePreview...</a>
                 </h5>
                 <div class="sub-meta">
                     <span>

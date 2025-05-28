@@ -1,4 +1,6 @@
-﻿namespace MyBlogSite.Areas.Admin.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MyBlogSite.Areas.Admin.Models
 {
     public class WriterClass
     {
@@ -6,3 +8,4 @@
         public string Name { get; set; }
     }
 }
+
