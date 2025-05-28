@@ -22,12 +22,15 @@ namespace MyBlogSite.Controllers
         [HttpPost]
         public PartialViewResult PartialAddComment(Comment p)
         {
-            p.CommentDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+            p.CommentDate = DateTime.Now;
             p.CommentStatus = true;
-            p.BlogID = 19;
+
+            // p.BlogID zaten formdan geliyor
             cm.CommentAdd(p);
+
             return PartialView();
         }
+
         public PartialViewResult CommentListByBlog(int id)
         {
             var values = cm.GetList(id);

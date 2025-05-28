@@ -31,7 +31,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <div class="b-grid-top">
                                 <div class="blog_info_left_grid">
                                     <a href="single.html">
-                                        <img src="~/CoreBlogTema/images/b1.jpg" class="img-fluid" alt="">
+                                        <img src="@item.BlogImage" class="card-img-top img-fluid" alt="">
                                     </a>
                                 </div>
                                 <div class="blog-info-middle">
@@ -41,16 +41,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                                 <i class="far fa-calendar-alt"></i> @(((DateTime)item.BlogCreateDate).ToString("dd-MMM-yyy"))
                                             </a>
                                         </li>
-                                        <li class="mx-2">
+                                        <li>
                                             <a href="#">
-                                                <i class="far fa-thumbs-up"></i> 201 Likes
+                                                <i class="far fa-comment"></i> @(item.Comment?.Count?? 0)
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
-                                                <i class="far fa-comment"></i> 15 Comments
-                                            </a>
-                                        </li>
 
                                     </ul>
                                 </div>

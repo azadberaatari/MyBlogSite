@@ -54,6 +54,7 @@ namespace MyBlogSite.Controllers
         public IActionResult BlogReadAll(int id)
         {
             ViewBag.i = id;
+            ViewBag.BlogID = id; // ← Burası kritik! PartialAddComment kullanabilsin diye eklenir
             var values = bm.GetBlogByID(id);
             return View(values);
         }
