@@ -35,6 +35,8 @@ builder.Services.AddAuthentication(
     );
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<OpenAiService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -54,6 +56,8 @@ app.UseRouting();
 //app.UseStatusCodePagesWithReExecute("/ErrorPage/Error1/", "?code={0}");
 app.UseSession();
 app.UseAuthorization();
+
+
 
 //app.MapControllerRoute(
 //    name: "default",

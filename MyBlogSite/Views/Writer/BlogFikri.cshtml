@@ -1,0 +1,58 @@
+﻿@model BlogIdeaViewModel
+@{
+    ViewData["Title"] = "Blog Fikri Al";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<h1>Blog Fikri Oluştur</h1>
+<hr />
+
+<form asp-action="BlogFikri" method="post">
+    <div class="form-group">
+        <label asp-for="Topic"></label>
+        <input asp-for="Topic" class="form-control" placeholder="Örneğin: 'Yapay Zeka ve Gelecek'" />
+        <span asp-validation-for="Topic" class="text-danger"></span>
+    </div>
+
+    <div class="form-check mb-3">
+        <input asp-for="UseCustomPrompt" class="form-check-input" id="useCustomPrompt" />
+        <label class="form-check-label" for="useCustomPrompt">Özel talimat kullan</label>
+    </div>
+
+    <div id="customPromptContainer" class="form-group" style="display: none;">
+        <label asp-for="CustomPrompt"></label>
+        <textarea asp-for="CustomPrompt" class="form-control" rows="3" placeholder="Örneğin: 'Teknik terim kullanma, 500 kelimeyi geçmesin'"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        <i class="fas fa-lightbulb"></i> Fikir Oluştur
+    </button>
+</form>
+
+@if (Model.IsGenerated)
+{
+    <div class="mt-4 p-3 border rounded">
+        <h4>Oluşturulan İçerik:</h4>
+        <div class="p-2 bg-light">
+            @Html.Raw(Model.GeneratedContent.Replace("\n", "<br>"))
+        </div>
+        <button class="btn btn-success mt-3" onclick="copyToClipboard()">
+            <i class="fas fa-copy"></i> Kopyala
+        </button>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        // Özel prompt görünürlüğü
+        document.getElementById('useCustomPrompt').addEventListener('change', function() {
+            document.getElementById('customPromptContainer').style.display =
+                this.checked ? 'block' : 'none';
+        });
+
+        function copyToClipboard() {
+            navigator.clipboard.writeText(`@Model.GeneratedContent`);
+            alert('Kopyalandı!');
+        }
+    </script>
+}

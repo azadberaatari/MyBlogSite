@@ -16,10 +16,12 @@ namespace MyBlogSite.Controllers
         UserManager userManager = new UserManager(new EfUserRepository());
         WriterManager wm = new WriterManager(new EfWriterRepository());
         private readonly UserManager<AppUser> _userManager;
+        private readonly OpenAiService _openAiService;
 
-        public WriterController(UserManager<AppUser> userManager)
+        public WriterController(UserManager<AppUser> userManager, OpenAiService openAiService)
         {
             _userManager = userManager;
+            _openAiService = openAiService;
         }
 
         [Authorize]
@@ -110,5 +112,40 @@ namespace MyBlogSite.Controllers
             wm.TAdd(w);
             return RedirectToAction("Index", "Dashboard");
         }
+
+        [HttpGet]
+        public IActionResult BlogFikri()
+        {
+            return View(new BlogIdeaViewModel()); // Model kullanarak daha temiz bir yaklaşım
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> BlogFikri(BlogIdeaViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                // Özel prompt kullanımı (opsiyonel)
+                var customPrompt = model.UseCustomPrompt
+                    ? $"Konu: {model.Topic}\n\nTalimatlar: {model.CustomPrompt}\n\nYazı:"
+                    : null;
+
+                var generatedContent = await _openAiService.GenerateBlogContentAsync(model.Topic, customPrompt);
+
+                model.GeneratedContent = generatedContent;
+                model.IsGenerated = true;
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"Bir hata oluştu: {ex.Message}");
+            }
+
+            return View(model);
+        }
     }
 }
+
