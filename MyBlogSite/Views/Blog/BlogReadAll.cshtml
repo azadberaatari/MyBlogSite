@@ -1,26 +1,13 @@
-﻿@model ﻿IEnumerable<EntityLayer.Concrete.Blog>
+﻿@model IEnumerable<EntityLayer.Concrete.Blog>
 @{
     ViewData["Title"] = "BlogDetails";
     Layout = "~/Views/Shared/UserLayout.cshtml";
 }
 
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
-
 <!DOCTYPE html>
 <html lang="zxx">
-
-
 <body>
-    <!--Header-->
-    <!--//header-->
-    <!--//banner-->
     <section class="banner-bottom">
-        <!--/blog-->
         <div class="container">
             <div class="row">
                 <!--left-->
@@ -38,16 +25,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     <ul>
                                         <li>
                                             <a href="#">
-                                                <i class="far fa-calendar-alt"></i> @(((DateTime)item.BlogCreateDate).ToString("dd-MMM-yyy"))
+                                                <i class="far fa-calendar-alt"></i> @(((DateTime)item.BlogCreateDate).ToString("dd-MMM-yyyy"))
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <i class="far fa-comment"></i> @(item.Comment?.Count?? 0)
+                                                <i class="far fa-comment"></i> @(item.Comment?.Count ?? 0)
                                             </a>
                                         </li>
-                                        <li>
-
                                     </ul>
                                 </div>
                             </div>
@@ -57,34 +42,58 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             </h3>
                             <p>
                                 @item.BlogContent
-
                             </p>
                             <a href="/Blog/Index/" class="btn btn-primary read-m">Blog Listesi</a>
                         </div>
                     }
-                    @await Component.InvokeAsync("CommentListByBlog",new{ id=ViewBag.i})
-                    @* @await Html.PartialAsync("~/Views/Comment/CommentListByBlog.cshtml") *@
-                    @await Html.PartialAsync("~/Views/Comment/PartialAddComment.cshtml")
-                    
+
+                    <!-- Yorum Listesi -->
+                    <div id="comment-list">
+                        @await Component.InvokeAsync("CommentListByBlog", new { id = ViewBag.BlogID })
+                    </div>
+
+                    <!-- Yorum Ekleme Formu -->
+                    <div id="comment-form">
+                        <form id="addCommentForm" method="post">
+                            <input type="hidden" name="BlogID" value="@ViewBag.BlogID" />
+                            <input class="form-control" type="text" name="CommentUserName" placeholder="Adınız-Soyadınız" required="">
+                            <input class="form-control" type="text" name="CommentTitle" placeholder="Konu" required="">
+                            <textarea class="form-control" name="CommentContent" placeholder="Yorumunuz.." required=""></textarea>
+                            <button type="submit" class="btn btn-primary submit">Yorum Yap</button>
+                        </form>
+                    </div>
                 </div>
 
-                <!--//left-->
                 <!--right-->
                 <aside class="col-lg-4 agileits-w3ls-right-blog-con text-right">
                     <div class="right-blog-info text-left">
-                        
                         @await Component.InvokeAsync("CategoryList")
-
-                        @await Component.InvokeAsync("WriterLastBlog") 
                     </div>
-
                 </aside>
-                <!--//right-->
             </div>
         </div>
     </section>
 
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- AJAX Script -->
+    <script>
+        $('form').submit(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: "/Comment/PartialAddComment/",
+                data: $(this).serialize(),
+                success: function () {
+                    let blogId = $('input[name="BlogID"]').val();
+                    $('#comment-list').load('/Comment/CommentListByBlog/' + blogId);
+                    $('form')[0].reset();
+                }
+            });
+        });
+    </script>
+
 </body>
-
 </html>
-

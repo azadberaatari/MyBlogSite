@@ -57,17 +57,37 @@ namespace MyBlogSite.Areas.Admin.Controllers
             new WriterClass
             {
                 ID = 1,
-                Name="Efrun Evdi"
+                Name="Farit"
             },
             new WriterClass
             {
                 ID = 2,
-                Name="Ali Evdi"
+                Name="Recep"
             },
             new WriterClass
             {
                 ID = 3,
-                Name="Ömür Kırık"
+                Name="Kayra"
+            },
+            new WriterClass
+            {
+                ID = 4,
+                Name="Mesut"
+            },
+            new WriterClass
+            {
+                ID = 5,
+                Name="Emine"
+            },
+            new WriterClass
+            {
+                ID = 6,
+                Name="Ersan"
+            },
+            new WriterClass
+            {
+                ID = 7,
+                Name="Azad"
             },
         };
     }

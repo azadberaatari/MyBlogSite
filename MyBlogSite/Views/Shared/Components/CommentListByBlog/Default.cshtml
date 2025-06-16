@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EntityLayer.Concrete.Comment>
+﻿@* @model IEnumerable<EntityLayer.Concrete.Comment>
 <div class="comment-top">
     <h4>Yorumlar</h4>
     @foreach (var item in Model)
@@ -12,5 +12,33 @@
                 </p>
             </div>
         </div>
+    }
+</div>
+ *@
+
+
+
+@model IEnumerable<EntityLayer.Concrete.Comment>
+
+<div class="comment-top">
+    <h4>Yorumlar (@Model.Count())</h4>
+
+    @if (Model.Any())
+    {
+        @foreach (var item in Model)
+        {
+            <div class="media mt-3">
+                <div class="media-body">
+                    <h5 class="mt-0">@item.CommentUserName</h5>
+                    <strong>@item.CommentTitle</strong><br />
+                    <small class="text-muted">@item.CommentDate.ToString("dd MMM yyyy")</small>
+                    <p>@item.CommentContent</p>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>Henüz yorum yapılmamış.</p>
     }
 </div>
